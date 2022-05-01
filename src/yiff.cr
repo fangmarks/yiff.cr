@@ -1,12 +1,7 @@
-# module Yiff
-#   VERSION = "0.1.0"
-
-#   E621
-#   # TODO: Put your code here
-# end
-
 require "./sites/E621"
 
-e6 = E621.new("-young")
+e6 = E621.new blacklist:"-feet", useragent: "Funny/v1.0.0"
 
-puts e6.request "lio"
+result = e6.request "lio"
+
+puts result

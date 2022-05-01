@@ -4,8 +4,14 @@ require "../constants"
 
 class E621
   @ua : String?
+  @random_string : String?
 
-  def initialize(@blacklist : String, @useragent : String? = nil, @random : Bool? = true)
+  def initialize(
+    @blacklist : String?,
+    @apikey : String? = nil,
+    @useragent : String? = nil,
+    @random : Bool? = true
+  )
     if @useragent.nil?
       @ua = "#{Constants::USER_AGENT}"
     else
@@ -14,13 +20,18 @@ class E621
   end
 
   def request(tags : String)
-    search = "order:random -young #{tags}"
+    if @random
+      @random_string = "order:random"
+    else
+      @random_string = ""
+    end
     Crest::Request.new(
       :get,
       "#{Constants::E621_URL}/posts.json",
       user_agent: "#{@ua}",
+      authorization: @apikey.nil? ? nil : @apikey,
       params: {
-        :tags => search,
+        :tags => "#{@random_string} -young #{tags}",
       }).execute
   end
 end
