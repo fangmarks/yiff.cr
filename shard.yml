@@ -1,0 +1,17 @@
+name: yiff
+version: 0.1.0
+
+authors:
+  - Lio <crystal@lio.cat>
+
+targets:
+  yiff:
+    main: src/yiff.cr
+
+dependencies:
+  crest:
+    github: mamantoha/crest
+
+crystal: 1.4.1
+
+license: MIT
